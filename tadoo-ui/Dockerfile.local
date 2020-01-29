@@ -1,0 +1,16 @@
+### STAGE 1: BUILD ###
+
+FROM node:12.14.1-alpine3.10
+
+WORKDIR /ui-app
+
+ENV PATH /ui-app/node_modules/.bin:$PATH
+
+## Storing node modules on  separate layer will prevent npm installs from occurring each build
+COPY package.json package-lock.json ./
+RUN npm install
+
+## Copy remainder of files before packaging.
+COPY . .
+RUN npm run ng build
+CMD ng serve --host 0.0.0.0

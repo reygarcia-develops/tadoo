@@ -1,0 +1,46 @@
+version: "3.7"
+
+services:
+  tadoo-api:
+    build:
+      context: ./tadoo-api
+      dockerfile: Dockerfile
+    container_name: tadoo-api
+    ports:
+      - "80:80"
+    # command: ["./scripts/wait-for-it.sh", "tadoo-db:5432", "--", "sh", "run.sh"]
+    depends_on:
+      - tadoo-db
+    working_dir: /app
+    volumes:
+      - "./tadoo-api:/app"
+  tadoo-ui:
+    build:
+      context: ./tadoo-ui
+      dockerfile: Dockerfile.local
+    container_name: tadoo-ui
+    ports:
+      - "4200:4200"
+    depends_on:
+      - tadoo-api
+    working_dir: /ui-app
+    volumes:
+      - "./tadoo-ui:/ui-app"
+      - "/ui-app/node_modules"
+  tadoo-db:
+    container_name: tadoo-db
+    image: postgres:12.1
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=tadoo_db
+      - POSTGRES_USER=tadoo_user
+      - POSTGRES_PASSWORD=tadoo_pass
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./containers/db/initdb.d:/docker-entrypoint-initdb.d
+    command: postgres -c logging_collector=on -c log_destination=stderr -c log_statement=all
+
+volumes:
+  db:
