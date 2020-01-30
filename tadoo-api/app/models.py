@@ -4,6 +4,13 @@ from sqlalchemy.orm import relationship
 from .database import Base
 
 
+class User(Base):
+    __tablename__ = "users"
+
+    userId = Column ("id", Integer, primary_key=True, index=True)
+    userEmail = Column ("email", String, index=True)
+    userFullName = Column ("full_name", String)
+
 class Board(Base):
     __tablename__ = "boards"
 
