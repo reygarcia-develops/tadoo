@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import List
 
+
 class UserBase(BaseModel):
     userEmail: str
     userFullName: str
@@ -9,14 +10,22 @@ class UserBase(BaseModel):
 # Database Model
 class User(UserBase):
     userId: int
+    passwordHash: str
 
     class Config:
         orm_mode = True
 
 
 class UserCreate(UserBase):
-    pass
+    password: str
 
 
-class UserResponse(User):
-    pass
+class UserResponse(BaseModel):
+    userEmail: str
+    userFullName: str
+    userId: int
+
+
+class UserAuth(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
