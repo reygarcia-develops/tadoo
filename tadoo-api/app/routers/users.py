@@ -14,6 +14,7 @@ from ..operations.users import db_create_user, db_get_user
 from ..utilities.tokens import (
     create_access_token,
     oauth2_scheme,
+    get_password_hash,
     verify_password,
     ACCESS_TOKEN_EXPIRE_MINUTES,
     ALGORITHM,
@@ -91,4 +92,5 @@ def get_user(current_user: User = Depends(get_current_user)):
         userEmail=current_user.userEmail,
         userFullName=current_user.userFullName,
         userId=current_user.userId,
+        boards=current_user.boards,
     )
