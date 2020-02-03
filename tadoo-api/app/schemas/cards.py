@@ -5,6 +5,7 @@ class CardBase(BaseModel):
     cardName: str
     cardDescription: str
     listId: int
+    boardId: int
 
 
 # Database Model

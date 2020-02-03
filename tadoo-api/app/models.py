@@ -40,8 +40,8 @@ class BoardList(Base):
 
 class Card(Base):
     __tablename__ = "cards"
-
-    listId = Column("board_id", ForeignKey("lists.id"))
+    boardId = Column("board_id", ForeignKey("boards.id"))
+    listId = Column("list_id", ForeignKey("lists.id"))
     cardId = Column("id", Integer, primary_key=True, index=True)
     cardName = Column("card_name", String)
     cardDescription = Column("card_description", String)
