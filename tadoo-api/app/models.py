@@ -7,9 +7,11 @@ from .database import Base
 class User(Base):
     __tablename__ = "users"
 
-    userId = Column ("id", Integer, primary_key=True, index=True)
-    userEmail = Column ("email", String, index=True)
-    userFullName = Column ("full_name", String)
+    userId = Column("id", Integer, primary_key=True, index=True)
+    userEmail = Column("email", String, index=True)
+    userFullName = Column("full_name", String)
+    passwordHash = Column("password_hash", String)
+
 
 class Board(Base):
     __tablename__ = "boards"
@@ -20,6 +22,7 @@ class Board(Base):
 
     lists = relationship("BoardList", back_populates="board")
 
+
 class BoardList(Base):
     __tablename__ = "lists"
 
@@ -29,6 +32,7 @@ class BoardList(Base):
 
     board = relationship("Board", back_populates="lists")
     cards = relationship("Card", back_populates="lists")
+
 
 class Card(Base):
     __tablename__ = "cards"

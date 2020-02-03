@@ -5,8 +5,12 @@ from .. import models
 from ..schemas.users import UserCreate
 
 
-def db_create_user(db: Session, obj: UserCreate):
-    db_user = models.User(**obj.dict())
+def db_create_user(db: Session, obj: UserCreate, passwordHash: str):
+    db_user = models.User(
+        userEmail=obj.userEmail,
+        userFullName=obj.userFullName,
+        passwordHash=passwordHash,
+    )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
