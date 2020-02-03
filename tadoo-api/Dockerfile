@@ -1,4 +1,4 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:latest
+FROM tiangolo/uvicorn-gunicorn-fastapi:3.7
 
 WORKDIR /app
 
