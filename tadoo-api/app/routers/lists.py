@@ -1,33 +1,27 @@
-from typing import List
-
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
+from typing import List
 
-from ..schemas.lists import BoardList, BoardListCreate, BoardListResponse
-from ..operations.lists import db_create_list
+from .users import get_current_user
+from ..database import get_db
+from ..models import User
 from ..operations.boards import db_get_board
-from app.database import get_db
+from ..operations.lists import db_create_list
+from ..schemas.lists import BoardList, BoardListCreate, BoardListResponse
 
 
 router = APIRouter()
 
 
-# @board_router.get("/", response_model=List[BoardResponse])
-# def get_boards(db: Session = Depends(get_db)):
-#     return db_get_boards(db=db)
-
-
-# @board_router.get("/{board_id}", response_model=BoardResponse)
-# def get_board(board_id: int, db: Session = Depends(get_db)):
-#     db_board = db_get_board(db, lookup_id=board_id)
-#     if db_board is None:
-#         raise HTTPException(status_code=404, detail="Board not found")
-#     return db_board
-
-
 @router.post("/", response_model=BoardListResponse)
-def create_list(list_to_create: BoardListCreate, db: Session = Depends(get_db)):
-    db_board = db_get_board(db=db, lookup_id=list_to_create.boardId)
+def create_list(
+    list_to_create: BoardListCreate,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    db_board = db_get_board(
+        db=db, board_id=list_to_create.boardId, user_id=current_user.userId
+    )
     if db_board is None:
         raise HTTPException(status_code=404, detail="Board not found")
     return db_create_list(db=db, obj=list_to_create)

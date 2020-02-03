@@ -3,10 +3,10 @@ from sqlalchemy.orm import Session
 from typing import List
 
 from app.database import get_db
-from ..schemas import boards
-from ..operations.boards import db_create_board, db_get_boards, db_get_board
 from .users import get_current_user
+from ..schemas import boards
 from ..models import User
+from ..operations.boards import db_create_board, db_get_boards, db_get_board
 
 
 router = APIRouter()
