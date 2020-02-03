@@ -12,14 +12,18 @@ class User(Base):
     userFullName = Column("full_name", String)
     passwordHash = Column("password_hash", String)
 
+    boards = relationship("Board", back_populates="user")
+
 
 class Board(Base):
     __tablename__ = "boards"
 
     boardId = Column("id", Integer, primary_key=True, index=True)
+    userId = Column("user_id", ForeignKey("users.id"))
     boardName = Column("board_name", String)
     isFavorite = Column("is_favorite", Boolean, default=False)
 
+    user = relationship("User", back_populates="boards")
     lists = relationship("BoardList", back_populates="board")
 
 

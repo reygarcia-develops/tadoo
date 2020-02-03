@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from typing import List
 
+from .boards import Board
+
 
 class UserBase(BaseModel):
     userEmail: str
@@ -11,6 +13,7 @@ class UserBase(BaseModel):
 class User(UserBase):
     userId: int
     passwordHash: str
+    boards: List[Board] = []
 
     class Config:
         orm_mode = True
@@ -24,4 +27,5 @@ class UserResponse(BaseModel):
     userEmail: str
     userFullName: str
     userId: int
+    boards: List[Board] = []
 
