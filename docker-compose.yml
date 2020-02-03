@@ -6,6 +6,8 @@ services:
       context: ./tadoo-api
       dockerfile: Dockerfile
     container_name: tadoo-api
+    env_file:
+      - ./local_envs.env
     ports:
       - "80:80"
     # command: ["./scripts/wait-for-it.sh", "tadoo-db:5432", "--", "sh", "run.sh"]

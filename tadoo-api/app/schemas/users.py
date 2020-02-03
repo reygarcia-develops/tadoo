@@ -25,7 +25,3 @@ class UserResponse(BaseModel):
     userFullName: str
     userId: int
 
-
-class UserAuth(BaseModel):
-    access_token: str
-    token_type: str = "bearer"

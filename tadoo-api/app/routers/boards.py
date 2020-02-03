@@ -1,11 +1,10 @@
-from typing import List
-
 from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
+from typing import List
 
+from app.database import get_db
 from ..schemas import boards
 from ..operations.boards import db_create_board, db_get_boards, db_get_board
-from app.database import get_db
 
 
 router = APIRouter()
