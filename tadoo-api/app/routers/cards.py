@@ -20,14 +20,10 @@ def create_card(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    db_board = db_get_board(
-        db=db, board_id=card_to_create.boardId, user_id=current_user.userId
-    )
+    db_board = db_get_board(db=db, board_id=card_to_create.boardId, user_id=current_user.userId)
     if db_board is None:
         raise HTTPException(status_code=404, detail="User board not found")
-    db_list = db_get_list(
-        db, list_id=card_to_create.listId, board_id=card_to_create.boardId
-    )
+    db_list = db_get_list(db, list_id=card_to_create.listId, board_id=card_to_create.boardId)
     if db_list is None:
         raise HTTPException(status_code=404, detail="User list not found")
 

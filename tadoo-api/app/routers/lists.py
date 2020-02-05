@@ -19,9 +19,7 @@ def create_list(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    db_board = db_get_board(
-        db=db, board_id=list_to_create.boardId, user_id=current_user.userId
-    )
+    db_board = db_get_board(db=db, board_id=list_to_create.boardId, user_id=current_user.userId)
     if db_board is None:
         raise HTTPException(status_code=404, detail="Board not found")
     return db_create_list(db=db, obj=list_to_create)

@@ -13,17 +13,13 @@ router = APIRouter()
 
 
 @router.get("/", response_model=List[boards.BoardResponse])
-def get_boards(
-    current_user: User = Depends(get_current_user), db: Session = Depends(get_db)
-):
+def get_boards(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     return db_get_boards(db=db, user_id=current_user.userId)
 
 
 @router.get("/{board_id}", response_model=boards.BoardResponse)
 def get_board(
-    board_id: int,
-    current_user: User = Depends(get_current_user),
-    db: Session = Depends(get_db),
+    board_id: int, current_user: User = Depends(get_current_user), db: Session = Depends(get_db),
 ):
     db_board = db_get_board(db, board_id=board_id, user_id=current_user.userId)
     if db_board is None:
