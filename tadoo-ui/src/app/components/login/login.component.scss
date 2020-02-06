@@ -1,0 +1,42 @@
+.login-container {
+  display: block;
+  height: 100%;
+  margin: 0 auto;
+
+  .card-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 220px;
+
+    .login-card {
+      align-items: center;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      max-width: 450px;
+    }
+  }
+
+  .card-actions {
+    box-sizing: border-box;
+    padding: 0 35px;
+    padding-bottom: 20px;
+    width: 100%;
+  }
+
+  .form-container {
+    padding-top: 10px;
+    width: 100%;
+
+    form {
+      padding: 0 35px;
+
+      mat-form-field {
+        padding-bottom: 10px;
+        width: 100%;
+      }
+    }
+  }
+
+}

@@ -1,17 +1,19 @@
+@import "../variables";
+
 .toolbar {
   align-items: center;
-  background-color: #1976d2;
+  background-color: $primary-1;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 
   color: white;
   display: flex;
   flex: 1 1 auto;
   font-weight: 600;
-  height: 60px;
+  height: 80px;
   justify-content: center;
 
   .title {
-    font-size: 1.5625em;
+    font-size: 30px;
     font-family: "Kaushan Script", cursive;
   }
 }

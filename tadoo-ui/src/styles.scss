@@ -1,10 +1,76 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import './variables';
+
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+
+// Material Overrides
+
+.mat-card-header,
+.mat-form-field,
+.mat-raised-button,
+.mat-card-footer {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.mat-card-footer {
+  font-size: 14px;
+  padding: 10px 0;
+
+  a {
+    text-decoration: none;
+    color: $primary-2;
+
+    &:hover {
+      color: $primary-1;
+    }
+  }
+}
+
+
+// Form Overrides
+.mat-form-field.mat-form-field .mat-form-field-ripple,
+.mat-form-field.mat-form-field .mat-form-field-ripple.mat-accent {
+  background-color: $primary-2;
+}
+
+.mat-form-field.mat-form-field .mat-form-field-label {
+  color: $primary-2
+}
+
+//Form Invalid Overrides
+.mat-form-field.mat-form-field-invalid .mat-form-field-ripple,
+.mat-form-field.mat-form-field-invalid .mat-form-field-ripple.mat-accent {
+  background-color: $primary-4
+}
+
+.mat-error {
+  color: $primary-4;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  color: $primary-5
+}
+
+// Button Customizations
+
+.submit-button {
+  background: $primary-2;
+  color: $primary-3;
+  font-weight: 600;
+  width: 100%;
+
+  &:hover {
+    background: $primary-1;
+
+  }
 }
