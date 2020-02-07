@@ -55,8 +55,7 @@ body {
   font-weight: 600;
   width: 100%;
 
-  &:hover {
+  &:hover:enabled {
     background: $primary-1;
-
   }
 }
