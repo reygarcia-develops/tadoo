@@ -1,35 +1,23 @@
-// * Create archive and delete endpoints
-// * Add new fields
-// * Verify list exists when creating card.
-// * Be able to update multiple cards in a list (for positioning)???
-// * Option to move cards to another list when archiving a list
-// * https://coolors.co/ theme picker.
 {
-    "boards": [
-        {
-            "boardName": "name",
+    "boards": [{
+        "boardName": "name",
+        "boardId": 1,
+        "createdBy": "Rey",
+        "isArchived": false,
+        "lists": [{
+            "listName": "name",
+            "listId": 1,
             "boardId": 1,
-            "createdBy": "Rey",
             "isArchived": false,
-            "lists": [
-                {
-                    "listName": "name",
-                    "listId": 1,
-                    "boardId": 1,
-                    "isArchived": false,
-                    "cards": [
-                        {
-                            "cardName": "name",
-                            "cardId": 1,
-                            "listId": 1,
-                            "isArchived": false,
-                            "cardDetails": {
-                                "description": "description"
-                            }
-                        }
-                    ]
+            "cards": [{
+                "cardName": "name",
+                "cardId": 1,
+                "listId": 1,
+                "isArchived": false,
+                "cardDetails": {
+                    "description": "description"
                 }
-            ]
-        }
-    ]
+            }]
+        }]
+    }]
 }
