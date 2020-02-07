@@ -77,7 +77,7 @@ def create_user(user_to_create: users.UserCreate, db: Session = Depends(get_db))
         raise HTTPException(
             status_code=409, detail="Email is already associated to an account."
         )
-    password_hash = get_password_hash(user_to_create.password)
+    password_hash = get_password_hash(user_to_create.userPassword)
     created_user = db_create_user(db=db, obj=user_to_create, passwordHash=password_hash)
     return users.UserResponse(
         userEmail=created_user.userEmail,
