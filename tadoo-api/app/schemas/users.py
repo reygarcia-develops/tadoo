@@ -20,7 +20,7 @@ class User(UserBase):
 
 
 class UserCreate(UserBase):
-    password: str
+    userPassword: str
 
 
 class UserResponse(BaseModel):
