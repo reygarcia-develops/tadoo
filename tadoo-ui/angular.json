@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "tadoo-ui"
+  "defaultProject": "tadoo-ui",
+  "cli": {
+    "analytics": "0baab8cc-b894-4db5-8616-df710352f4fc"
+  }
 }
