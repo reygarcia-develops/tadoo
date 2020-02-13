@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { UserService } from './../../user/user.service';
-import { UserCreate, UserAuthenticate } from './../../user/user';
+
+import { AuthenticationService } from '@app/services/authentication.service';
+import { UserService } from '@app/services/user.service';
+import { UserCreate, UserAuthentication } from '@app/models/user';
+
 
 
 
@@ -24,8 +29,15 @@ import { UserCreate, UserAuthenticate } from './../../user/user';
 })
 
 export class LoginComponent implements OnInit {
-  constructor(private fb: FormBuilder, private userService: UserService) { }
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private authService: AuthenticationService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar) { }
 
+  returnUrl: string;
   loginForm = this.fb.group({
     username: [null, [Validators.required, Validators.email]],
     password: [null, [Validators.required]],
@@ -40,7 +52,12 @@ export class LoginComponent implements OnInit {
   showLogin = true;
 
   ngOnInit() {
-
+    // redirect to home if already logged in
+    if (this.authService.currentUserValue && !this.router.isActive('/home', true)) {
+      this.router.navigate(['/home']);
+    }
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/home';
   }
 
   createUser() {
@@ -51,23 +68,39 @@ export class LoginComponent implements OnInit {
 
     this.userService.createUser(userCreate).subscribe(
       res => {
-        console.log('Response:', res);
+        // TODO This feels super funky doing. Try and fix this.
+        this.loginForm.patchValue({
+          username: userCreate.userEmail,
+          password: userCreate.userPassword,
+        });
+        return this.authenticateUser();
       },
       err => {
-        console.log('Error:', err);
+        if (err.status === 409) {
+          this.snackBar.open(err.error.detail, undefined, {
+            duration: 5000,
+            panelClass: ['snack-error'],
+          });
+        }
       });
   }
+
   authenticateUser() {
-    const userAuthenticate = new UserAuthenticate();
+    const userAuthenticate = new UserAuthentication();
     userAuthenticate.username = this.loginForm.get('username').value;
     userAuthenticate.password = this.loginForm.get('password').value;
 
-    this.userService.authenticateUser(userAuthenticate).subscribe(
+    this.authService.authenticateUser(userAuthenticate).subscribe(
       res => {
-        console.log('Response:', res);
+        this.router.navigate([this.returnUrl]);
       },
       err => {
-        console.log('Error:', err);
+        if (err.status === 401) {
+          this.snackBar.open(err.error.detail, undefined, {
+            duration: 5000,
+            panelClass: ['snack-error'],
+          });
+        }
       });
   }
 

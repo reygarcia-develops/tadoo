@@ -5,10 +5,10 @@ export class UserCreate {
 }
 
 export class User {
-  userEmail: string;
+  token?: string;
 }
 
-export class UserAuthenticate {
+export class UserAuthentication {
   username: string;
   password: string;
 }
